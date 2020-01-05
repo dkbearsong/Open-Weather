@@ -1,0 +1,90 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    <!-- #1: html taking in weather information-->
+      Please enter any of the information below you would like weather information on and click submit.<br>
+      div class="content-section">
+          <form method="Post" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class = "form-group">
+              <legend class="border-bottom mb-4">Location details</legend>
+              <div class-"form-group">
+                {{ form.city.label(class="form-control-label")}}
+                {% if form.city.errors %}
+                  {{ form.city(class="form-control form-control-lg is-invalid")}}
+                  <div class="invalid-feedback">
+                    {% for errors in form.city.errors %}
+                      <span>{{ error }} </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form.city(class="form-control form-control-lg")}}
+                {% endif %}
+                
+              </div>
+              <div class-"form-group">
+                {{ form.state.label(class="form-control-label")}}
+                {% if form.state.errors %}
+                  {{ form.state(class="form-control form-control-lg is-invalid")}}
+                  <div class="invalid-feedback">
+                    {% for errors in form.state.errors %}
+                      <span>{{ error }} </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form.state(class="form-control form-control-lg")}}
+                {% endif %}
+              </div>
+              <div class-"form-group">
+                {{ form.country.label(class="form-control-label")}}
+                {% if form.country.errors %}
+                  {{ form.country(class="form-control form-control-lg is-invalid")}}
+                  <div class="invalid-feedback">
+                    {% for errors in form.country.errors %}
+                      <span>{{ error }} </span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{ form.country(class="form-control form-control-lg")}}
+                {% endif %}
+              </div>
+            </fieldset>
+            <div class="form-group">
+              {{ form.submit(class="btn btn-outline-info")}}
+              </div>
+          </form>
+        </div>
+      <!-- pass submitted data over to javascript-->
+      <!-- #2 Script passing in form information to javascript-->
+      <script async src="index.js"></script>
+      <!-- place here output fields to return the information retrieved from the database-->
+      <br>
+      <br>
+      <!-- [weather[today['date', {'temp': int, 'feels_like': int, 'low', int, 'high': int, 'humidity': int, 'wind': int, 'weather_main': string, 'weather_desc': string, 'measurement':, 'imperial'}], ]]-->
+      <div id="Today">{{ weather[0] }} </div>
+      <div id="TempToday">{{ weather[1]['temp'] }} F</div>
+      <div id="HighToday">{{ weather[1]['high'] }} F</div>
+      <div id="LowToday">{{ weather[1]['low'] }} F</div>
+      <div id="HumidityToday">{{ weather[1]['humidity'] }}</div>
+      <div id="WindToday">{{ weather[1]['wind'] }} MPH</div>
+      <div id="WeatherToday">{{ weather[1]['weather_desc'] }}</div>
+      <!-- paragraph break -->
+      <!-- set 5 boxes for 5 day forecast -->
+      {% for days in allweather[1] %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{days.date}}</a>
+            </div><p class="article-content">      
+              High: {{days.high}} F<br>
+              Low: {{days.low }} F<br>
+              Humidity: {{days.humidity}}<br>
+              Wind: {{days.wind}}<br>
+              Weather: {{days.weather}}<br>
+              Sunrise: {{days.sunrise}}<br>
+              Sunset: {{days.sunset}}<br>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+{% endblock content %}
