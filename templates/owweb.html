@@ -3,7 +3,7 @@
 {% block content %}
     <!-- #1: html taking in weather information-->
       Please enter any of the information below you would like weather information on and click submit.<br>
-      div class="content-section">
+      <div class="content-section">
           <form method="Post" action="">
             {{ form.hidden_tag() }}
             <fieldset class = "form-group">
@@ -54,37 +54,4 @@
               </div>
           </form>
         </div>
-      <!-- pass submitted data over to javascript-->
-      <!-- #2 Script passing in form information to javascript-->
-      <script async src="index.js"></script>
-      <!-- place here output fields to return the information retrieved from the database-->
-      <br>
-      <br>
-      <!-- [weather[today['date', {'temp': int, 'feels_like': int, 'low', int, 'high': int, 'humidity': int, 'wind': int, 'weather_main': string, 'weather_desc': string, 'measurement':, 'imperial'}], ]]-->
-      <div id="Today">{{ weather[0] }} </div>
-      <div id="TempToday">{{ weather[1]['temp'] }} F</div>
-      <div id="HighToday">{{ weather[1]['high'] }} F</div>
-      <div id="LowToday">{{ weather[1]['low'] }} F</div>
-      <div id="HumidityToday">{{ weather[1]['humidity'] }}</div>
-      <div id="WindToday">{{ weather[1]['wind'] }} MPH</div>
-      <div id="WeatherToday">{{ weather[1]['weather_desc'] }}</div>
-      <!-- paragraph break -->
-      <!-- set 5 boxes for 5 day forecast -->
-      {% for days in allweather[1] %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{days.date}}</a>
-            </div><p class="article-content">      
-              High: {{days.high}} F<br>
-              Low: {{days.low }} F<br>
-              Humidity: {{days.humidity}}<br>
-              Wind: {{days.wind}}<br>
-              Weather: {{days.weather}}<br>
-              Sunrise: {{days.sunrise}}<br>
-              Sunset: {{days.sunset}}<br>
-            </div>
-          </div>
-        </article>
-      {% endfor %}
 {% endblock content %}
